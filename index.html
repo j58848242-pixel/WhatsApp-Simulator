@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Alat Bukti Chat WhatsApp - PT Arunika Kreasi</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- FontAwesome untuk ikon WhatsApp & Status Bar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="whatsapp-container">
+        
+        <!-- Notifikasi Toast POV di Atas -->
+        <div id="povToast" class="pov-toast">
+            Anda sedang dalam mode <span id="toastModeText">POV Tergugat</span>. Tekan tombol ← untuk berganti POV.
+        </div>
+
+        <!-- Status Bar Smartphone (Jam, Sinyal, WiFi, Baterai) -->
+        <div class="phone-status-bar">
+            <div class="status-time" id="realTimeClock">07.00</div>
+            <div class="status-icons">
+                <i class="fa-solid fa-signal" title="Sinyal"></i>
+                <i class="fa-solid fa-wifi" title="WiFi"></i>
+                <i class="fa-solid fa-battery-full" title="Baterai 100%"></i>
+            </div>
+        </div>
+
+        <!-- Header Chat WhatsApp -->
+        <div class="wa-header">
+            <div class="wa-header-left">
+                <!-- Tombol Keluar / Back untuk Switch POV -->
+                <i class="fa-solid fa-arrow-left" id="btnSwitchPOV" title="Klik untuk Beralih POV Penggugat/Tergugat"></i>
+                <div class="wa-profile-pic">
+                    <img id="headerProfilePic" src="assets/img/profile-penggugat.jpg" alt="Foto Profil Kontak" onerror="this.src='https://via.placeholder.com/40'">
+                </div>
+                <div class="wa-contact-info">
+                    <span class="wa-contact-name" id="headerContactName">Surya Jaka</span>
+                    <span class="wa-contact-status">online</span>
+                </div>
+            </div>
+            <div class="wa-header-right">
+                <i class="fa-solid fa-video"></i>
+                <i class="fa-solid fa-phone"></i>
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
+        </div>
+
+        <!-- Ruang Obrolan (Chat Body) -->
+        <div class="wa-chat-body" id="chatBody">
+            <div class="wa-full-chat-wrapper">
+                <!-- Gambar Chat Utama (Bisa Berganti POV) -->
+                <img id="mainChatImg" src="bukti-chat-whatsapp-(pov tegugat).png" alt="Bukti Chat WhatsApp" class="wa-full-chat-img" onerror="this.src='assets/img/bukti-chat-whatsapp-(pov tegugat).png'">
+            </div>
+        </div>
+
+        <!-- Footer / Input Bar -->
+        <div class="wa-footer">
+            <i class="fa-regular fa-face-smile"></i>
+            <i class="fa-solid fa-paperclip"></i>
+            <div class="wa-input-box">Ketik pesan</div>
+            <i class="fa-solid fa-microphone"></i>
+        </div>
+    </div>
+
+    <!-- Script JavaScript untuk Jam, Switch POV, & Notifikasi -->
+    <script>
+        // Update Jam Real-Time
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('realTimeClock').textContent = `${hours}.${minutes}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Elemen DOM
+        const btnSwitchPOV = document.getElementById('btnSwitchPOV');
+        const headerContactName = document.getElementById('headerContactName');
+        const headerProfilePic = document.getElementById('headerProfilePic');
+        const mainChatImg = document.getElementById('mainChatImg');
+        const chatBody = document.getElementById('chatBody');
+        const povToast = document.getElementById('povToast');
+        const toastModeText = document.getElementById('toastModeText');
+
+        // Path Gambar POV
+        const povTergugat = "bukti-chat-whatsapp-(pov tegugat).png";
+        const povPenggugat = "bukti-chat-whatsapp (pov penggugat).png";
+
+        // State POV (Default: TERGUGAT / Surya Jaka)
+        let currentPOV = 'TERGUGAT';
+
+        // Fungsi Menampilkan Notifikasi Toast
+        function showToast(message) {
+            toastModeText.textContent = message;
+            povToast.classList.add('show');
+            
+            setTimeout(() => {
+                povToast.classList.remove('show');
+            }, 4000);
+        }
+
+        // Fungsi untuk menggulir chat ke paling bawah secara instan/halus
+        function scrollToBottom() {
+            // Menggunakan setTimeout kecil untuk memastikan gambar sudah selesai dimuat ukurannya oleh browser
+            setTimeout(() => {
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 50);
+        }
+
+        // Saat halaman pertama kali dimuat
+        window.addEventListener('DOMContentLoaded', () => {
+            showToast("POV Tergugat");
+            scrollToBottom();
+        });
+
+        // Ketika gambar selesai dimuat, pastikan scroll tetap di bawah
+        mainChatImg.addEventListener('load', () => {
+            scrollToBottom();
+        });
+
+        // Fitur Switch POV via Tombol Panah Kembali
+        btnSwitchPOV.addEventListener('click', () => {
+            if (currentPOV === 'TERGUGAT') {
+                // Beralih ke POV PENGGUGAT
+                currentPOV = 'PENGGUGAT';
+                headerContactName.textContent = "Rifqi Syamsu (PT Arunika)";
+                headerProfilePic.src = "assets/img/profile-tergugat.jpg";
+                mainChatImg.src = povPenggugat;
+                mainChatImg.onerror = function() {
+                    this.src = "assets/img/" + povPenggugat;
+                };
+                showToast("POV Penggugat");
+            } else {
+                // Beralih ke POV TERGUGAT
+                currentPOV = 'TERGUGAT';
+                headerContactName.textContent = "Surya Jaka";
+                headerProfilePic.src = "assets/img/profile-penggugat.jpg";
+                mainChatImg.src = povTergugat;
+                mainChatImg.onerror = function() {
+                    this.src = "assets/img/" + povTergugat;
+                };
+                showToast("POV Tergugat");
+            }
+            
+            // Otomatis arahkan scroll ke paling bawah setiap kali berganti POV
+            scrollToBottom();
+        });
+    </script>
+</body>
+</html>

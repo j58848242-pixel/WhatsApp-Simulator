@@ -1,0 +1,205 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: #111b21;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Bingkai WhatsApp Container */
+.whatsapp-container {
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    max-height: 900px;
+    background-color: #efeae2;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+/* Styling Status Bar HP di Atas */
+.phone-status-bar {
+    background-color: #005e4e;
+    color: white;
+    padding: 6px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+    z-index: 11;
+}
+
+.status-icons {
+    display: flex;
+    gap: 8px;
+    font-size: 12px;
+    align-items: center;
+}
+
+/* Header WhatsApp */
+.wa-header {
+    background-color: #008069;
+    color: white;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.wa-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Tombol Panah Keluar yang Bisa Diklik */
+.wa-header-left i#btnSwitchPOV {
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.wa-header-left i#btnSwitchPOV:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.wa-profile-pic img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.wa-contact-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.wa-contact-name {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.wa-contact-status {
+    font-size: 12px;
+    color: #e2e2e2;
+}
+
+.wa-header-right {
+    display: flex;
+    gap: 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Ruang Obrolan dengan Scrollbar Mulus */
+.wa-chat-body {
+    flex: 1;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: #efeae2;
+    scroll-behavior: smooth;
+}
+
+.wa-chat-body::-webkit-scrollbar {
+    width: 6px;
+}
+.wa-chat-body::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+/* Wrapper & Gambar Utuh */
+.wa-full-chat-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #efeae2;
+}
+
+.wa-full-chat-img {
+    width: 100% !important;
+    height: auto !important;
+    display: block;
+    border: none;
+    outline: none;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Footer / Input Bar */
+.wa-footer {
+    background-color: #f0f2f5;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #54656f;
+    font-size: 20px;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.wa-input-box {
+    flex: 1;
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #667781;
+}
+
+/* Styling Notifikasi Toast POV */
+.pov-toast {
+    position: absolute;
+    top: -60px; /* Posisi awal tersembunyi di atas */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(17, 27, 33, 0.92);
+    color: #e9edef;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    width: 90%;
+    max-width: 380px;
+    transition: top 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+    border-left: 4px solid #00a884;
+}
+
+.pov-toast.show {
+    top: 12px; /* Muncul mengambang rapi di bagian atas bingkai */
+    opacity: 1;
+}
+
+.pov-toast span {
+    font-weight: 600;
+    color: #25d366;
+}
